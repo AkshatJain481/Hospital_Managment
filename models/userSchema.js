@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         maxLength: [5, "NIC must contain exactly 5 digits"] // Will check the digits of the phone number if they are 10 or not
     }, 
     dob: {
-        type: Data,
+        type: Date,
         required:[true , "DOB is required"]
     },
     gender: {
@@ -78,4 +78,4 @@ userSchema.methods.generateJsonWebToken = function(){
 
 
 
-export const User = mongoose.model("Message" ,userSchema );
+export const User = mongoose.model("User" ,userSchema );
