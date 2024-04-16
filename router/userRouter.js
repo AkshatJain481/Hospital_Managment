@@ -10,7 +10,7 @@ router.post("/patient/register" , patientRegister);
 
 router.post("/login", login);
 
-router.post("/admin/addnew",isAdminAuthenticated ,addNewAdmin);
+router.post("/admin/addnew", isAdminAuthenticated ,addNewAdmin);
 
 router.get("/doctors", getAllDoctors);
 
