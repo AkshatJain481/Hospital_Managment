@@ -1,6 +1,7 @@
 import { catchAsyncErrors } from "./catchAsyncErrors.js";
 import ErrorHandler from "./errorMiddleware.js";
 import jwt from "jsonwebtoken";
+import {User} from "../models/userSchema.js";
 
 
 export const isAdminAuthenticated = catchAsyncErrors(async(req,res,next)=>{
@@ -10,7 +11,7 @@ export const isAdminAuthenticated = catchAsyncErrors(async(req,res,next)=>{
     }
     const decoded = jwt.verify(token , process.env.JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
-    if(req.user.role != "Admin"){
+    if(req.user.role !== "Admin"){
         return next(new ErrorHandler(`${req.user.role} not authorised for this resources`,403
     ));
     }
@@ -24,7 +25,7 @@ export const isPatientAuthenticated = catchAsyncErrors(async(req,res,next)=>{
     }
     const decoded = jwt.verify(token , process.env.JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
-    if(req.user.role != "Patient"){
+    if(req.user.role !== "Patient"){
         return next(new ErrorHandler(`${req.user.role} not authorised for this resources`,403
     ));
     }

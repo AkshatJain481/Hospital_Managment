@@ -101,7 +101,8 @@ export const addNewAdmin = catchAsyncErrors(async(req , res , next)=>{
    if(isRegistered){
       return next(new ErrorHandler(`${isRegistered} Email already exists`))
    }
-   const admin = await User.create({firstName,
+   const admin = await User.create({
+      firstName,
       lastName,
       email,
       phone,
@@ -109,7 +110,7 @@ export const addNewAdmin = catchAsyncErrors(async(req , res , next)=>{
       gender,
       dob,
       nic, 
-   role: "Admin" 
+      role: "Admin" 
 });
 res.status(200).json({
    success: true,
@@ -126,7 +127,7 @@ export const getAllDoctors = catchAsyncErrors(async(req, res,next)=>{
     })
 });
 
-export const getUserDetails =catchAsyncErrors(async(req,res,next)=>{
+export const getUserDetails = catchAsyncErrors(async(req,res,next)=>{
     const user = req.user;
     res.status(200).json({
       success : true,
