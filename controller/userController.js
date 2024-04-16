@@ -73,3 +73,63 @@ export const login = catchAsyncErrors(async (req , res, next ) => {
    generateToken(user , "user logged in successfully", 200 , res)
 
 })
+
+export const addNewAdmin = catchAsyncErrors(async(req , res , next)=>{
+   const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      password,
+      gender,
+      dob,
+      nic,  
+    } = req.body;
+    if( 
+      !firstName||
+      !lastName||
+      !email||
+      !phone||
+      !password||
+      !gender||
+      !dob||
+      !nic
+   ){
+      return next(new ErrorHandler("Please fill full form", 400));
+   }
+   const isRegistered = await User.findOne({email});
+   if(isRegistered){
+      return next(new ErrorHandler(`${isRegistered} Email already exists`))
+   }
+   const admin = await User.create({firstName,
+      lastName,
+      email,
+      phone,
+      password,
+      gender,
+      dob,
+      nic, 
+   role: "Admin" 
+});
+res.status(200).json({
+   success: true,
+   message:"New Admin Registered"
+});
+});
+
+
+export const getAllDoctors = catchAsyncErrors(async(req, res,next)=>{
+    const doctors = await User.find({role:"Doctor"});
+    res.status(200).json({
+      success:true,
+      doctors,
+    })
+});
+
+export const getUserDetails =catchAsyncErrors(async(req,res,next)=>{
+    const user = req.user;
+    res.status(200).json({
+      success : true,
+      user,
+    });
+}); 
