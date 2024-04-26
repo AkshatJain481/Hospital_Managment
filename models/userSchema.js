@@ -51,9 +51,13 @@ const userSchema = new mongoose.Schema({
         enum:["Admin" , "Patient" , "Doctor"],
     },
     doctorDepartment:{
+        type: String,
+    },
+    docAvatar: {
         public_id: String,
         url: String
-    },
+
+    }
 
 });
 
